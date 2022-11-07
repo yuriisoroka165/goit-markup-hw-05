@@ -46,7 +46,7 @@
         <section class="hero">
             <div class="container">
                 <h1 class="hero-title">Ефективні рішення для вашого бізнесу</h1>
-                <button class="hero-button" type="button">Замовити послугу</button>
+                <button data-modal-open class="hero-button" type="button">Замовити послугу</button>
             </div>
         </section>
         <section class="section">
@@ -98,13 +98,28 @@
                 <h2 class="company-works-title">Чим ми займаємося</h2>
                 <ul class="company-works-list list">
                     <li class="work">
-                        <img src="./images/work1.jpg" alt="Програмування" width="370" height="295">
+                        <div class="work-thumb">
+                            <img src="./images/work1.jpg" alt="Десктопні додадтки" width="370" height="295">
+                            <div class="work-description-container">
+                                <h3 class="work-title">Десктопні додадтки</h3>
+                            </div>
+                        </div>
                     </li>
                     <li class="work">
-                        <img src="./images/work2.jpg" alt="Аналітика" width="370" height="295">
+                        <div class="work-thumb">
+                            <img src="./images/work2.jpg" alt="Мобільні додатки" width="370" height="295">
+                            <div class="work-description-container">
+                                <h3 class="work-title">Мобільні додатки</h3>
+                            </div>
+                        </div>
                     </li>
                     <li class="work">
-                        <img src="./images/work3.jpg" alt="Дизайн" width="370" height="295">
+                        <div class="work-thumb">
+                            <img src="./images/work3.jpg" alt="Дизайнерські рішення" width="370" height="295">
+                            <div class="work-description-container">
+                                <h3 class="work-title">Дизайнерські рішення</h3>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -363,5 +378,13 @@
             </div>
         </div>
     </footer>
+
+    <div class="modal-window-backdrop is-hidden" data-modal>
+        <div class="modal-window">
+            <button data-modal-close>Close</button>
+        </div>
+    </div>
+
+    <script src="./js/modal.js"></script>
 </body>
 </html>
