@@ -22,12 +22,16 @@
     --project-title-color: #212121;
     --projects-type-color: #757575;
     --projects-item-border-color: #eeeeee;
+    --project-description-background: rgba(33, 150, 243, 0.9);
     --hero-footer-background-color: #2f303a;
     --footer-contacts-color: rgba(255, 255, 255, 0.6);
     --footer-contacts-hove-focus-color: #2196f3;
     --footer-social-link-bg-color: rgba(255, 255, 255, 0.1);
     --global-white-color: #ffffff;
     --social-clients-links-hover-color: #2196f3;
+    --modal-window-backdrop-color: rgba(0, 0, 0, 0.2);
+    --global-transition-duration: 250ms;
+    --glolnal-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html {
@@ -141,6 +145,10 @@ img {
     letter-spacing: 0.02em;
     text-decoration: none;
     color: var(--header-navigation-link-color);
+    /* css перехід */
+    transition-property: color;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
 }
 
 .header-navigation-email-icon {
@@ -166,6 +174,10 @@ img {
     letter-spacing: 0.02em;
     text-decoration: none;
     color: var(--header-contacts-color);
+    /* css перехід */
+    transition-property: color;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
 }
 
 .header-navigation-link:hover,
@@ -177,18 +189,44 @@ img {
     color: var(--header-navigation-link-hover-color);
 }
 
-.current {
+.current::after,
+.header-navigation-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    display: block;
+    min-width: 100%;
+    height: 4px;
+    background-color: var(--header-navigation-link-hover-color);
+    opacity: 0;
+    border-radius: 2px;
+    /* css перехід */
+    transition-property: opacity;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
+}
+
+.header-navigation-link:hover::after,
+.header-navigation-link:focus::after {
+    opacity: 1;
+}
+
+.current,
+.current::after {
+    opacity: 1;
     color: var(--header-current-color);
 }
-.current::after {
+/* це не підійде тому що бордер не анімується */
+/* .current::after {
+    content: "";
     position: absolute;
     bottom: -1px;
     left: 0;
     min-width: 100%;
-    content: "";
     border-bottom: 4px solid var(--header-navigation-link-hover-color);
     border-radius: 2px;
-}
+} */
 
 /* ################## End header #################### */
 
@@ -242,6 +280,10 @@ img {
     color: var(--global-white-color);
     border: none;
     border-radius: 4px;
+    /* css перехід */
+    transition-property: background;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
 }
 
 .hero-button:active {
@@ -258,7 +300,11 @@ img {
     /* і розтягуємо на вюпорт */
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: var(--modal-window-backdrop-color);
+    /* css перехід */
+    transition-property: opacity;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
     z-index: 3;
 }
 
@@ -269,16 +315,42 @@ img {
     pointer-events: none;
 }
 
+.modal-window-backdrop.is-hidden .modal-window {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
 .modal-window {
     /* центрування відносно початку вікна верхній лівий кут */
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-
+    padding: 8px;
+    transform: translate(-50%, -50%) scale(1);
     min-width: 528px;
     min-height: 581px;
+    border-radius: 4px;
     background-color: var(--global-white-color);
+    transition-property: transform;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
+}
+
+.modal-close-icon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+.modal-close-button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    background-color: var(--global-white-color);
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
 }
 
 /* ##################### End Modal window #################### */
@@ -429,6 +501,11 @@ img {
     justify-content: center;
     color: var(--social-icons-fill);
     background-color: var(--global-white-color);
+    border-radius: 50%;
+    /* css перехід */
+    transition-property: color, background-color;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
 }
 
 .social-link-icon {
@@ -441,7 +518,6 @@ img {
 .social-link:focus {
     color: var(--global-white-color);
     background-color: var(--social-clients-links-hover-color);
-    border-radius: 50%;
 }
 
 .company-clients-list {
@@ -454,8 +530,6 @@ img {
 }
 
 .client-link {
-    border: 1px solid var(--social-icons-fill);
-    border-radius: 4px;
     width: 170px;
     height: 92px;
     display: flex;
@@ -463,6 +537,12 @@ img {
     justify-content: center;
     color: var(--social-icons-fill);
     background-color: var(--global-white-color);
+    border: 1px solid var(--social-icons-fill);
+    border-radius: 4px;
+    /* css перехід */
+    transition-property: color, border;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
 }
 
 .client-icon {
@@ -517,14 +597,19 @@ img {
     color: var(--projects-filter-button-text-color);
     border: none;
     border-radius: 4px;
+    /* css перехід */
+    transition-property: background, color, box-shadow;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
 }
 
 .projects-filter-button:hover,
 .projects-filter-button:focus {
     background: var(--projects-filter-button-hover-background-color);
     color: var(--global-white-color);
-    box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.08),
-        0px 2px 2px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 
+                0px 1px 2px rgba(0, 0, 0, 0.08),
+                0px 2px 2px rgba(0, 0, 0, 0.12);
 }
 
 .projects-list {
@@ -541,20 +626,25 @@ img {
 }
 
 .project-link {
-    display: block;
+    display: inline-block;
     text-decoration: none;
     color: var(--projects-link-color);
+    /* css перехід */
+    transition-property: box-shadow;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
 }
 
 .project-link:hover,
 .project-link:focus {
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
-        1px 4px 6px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 
+                0px 4px 4px rgba(0, 0, 0, 0.06), 
+                1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 
-/*############### ????Start Projects description animation #################*/
-
-.project-description-container {
+/*############### Start Projects description animation #################*/
+/* Цей спосіб працює і відображає приховане без переходу з "виїжджанням"  */
+/* .project-description-container {
     position: relative;
 }
 
@@ -562,8 +652,6 @@ img {
     display: inline-block;
     position: absolute;
     content: '';
-    width: 80%;
-    height: 100%;
 }
 
 .project-description {
@@ -575,10 +663,63 @@ img {
     padding: 63px 24px;
     overflow: auto;
     background: rgba(33, 150, 243, 0.9);
+    
+    transition-property: opacity;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
 }
 
-.projects-item:hover .project-description {
+.project-link:hover .project-description,
+.project-link:focus .project-description {
     opacity: 1;
+}
+
+.project-description > p {
+    font-size: 18px;
+    line-height: calc(28 / 18);
+    color: var(--global-white-color);
+} */
+
+/*############### End Projects description animation #################*/
+
+/*############### Start Projects description animation #################*/
+
+.project-description-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.project-description-container::before {
+    display: inline-block;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--project-description-background);
+    transform: translateY(100%);
+    transition-property: transform;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
+}
+
+.project-description {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: auto;
+    padding: 63px 24px;
+    /* css перехід */
+    transform: translateY(100%);
+    transition-property: transform;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
+}
+
+.projects-item:hover .project-description-container::before,
+.projects-item:hover .project-description {
+    transform: translateY(0);
 }
 
 .project-description > p {
@@ -646,6 +787,10 @@ img {
     line-height: 1.7142;
     text-decoration: none;
     color: var(--footer-contacts-color);
+    /* css перехід */
+    transition-property: color;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
 }
 
 .footer-contact:hover,
@@ -692,6 +837,10 @@ img {
     color: var(--global-white-color);
     background-color: var(--footer-social-link-bg-color);
     border-radius: 50%;
+    /* css перехід */
+    transition-property: background-color;
+    transition-duration: var(--global-transition-duration);
+    transition-timing-function: var(--glolnal-transition-timing-function);
 }
 
 .footer-social-link:hover,
